@@ -1,0 +1,131 @@
+@use './styles/variables' as *;
+
+/* ============ 基础重置 ============ */
+page {
+  background: $mv-cream;
+  color: $mv-text;
+  font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Helvetica Neue', Helvetica,
+    'Microsoft YaHei', sans-serif;
+  font-size: $mv-font;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+
+  /* NutUI 主题变量覆盖：莫兰迪紫 */
+  --nutui-color-primary: #{$mv-purple};
+  --nutui-color-primary-stop-1: #{$mv-purple-light};
+  --nutui-color-primary-stop-2: #{$mv-purple-deep};
+  --nutui-color-info: #{$mv-purple};
+  --nutui-color-success: #{$mv-success};
+  --nutui-color-warning: #{$mv-warning};
+  --nutui-color-danger: #{$mv-danger};
+  --nutui-color-title: #{$mv-purple-ink};
+  --nutui-color-text: #{$mv-text};
+  --nutui-color-text-help: #{$mv-text-sub};
+  --nutui-color-text-disabled: #{$mv-text-weak};
+  --nutui-color-background: #{$mv-lavender-50};
+  --nutui-color-border: #{$mv-lavender-200};
+  --nutui-radius-xs: 8px;
+  --nutui-radius-s: 12px;
+  --nutui-radius-base: 16px;
+  --nutui-radius-l: 20px;
+}
+
+view,
+text,
+image,
+input,
+textarea,
+scroll-view {
+  box-sizing: border-box;
+}
+
+/* 去掉小程序 button 默认样式，统一由 mv-btn 控制 */
+button {
+  margin: 0;
+  padding: 0;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  font-size: inherit;
+  line-height: normal;
+  color: inherit;
+}
+
+button::after {
+  border: none;
+}
+
+/* ============ 通用类 ============ */
+.mv-icon {
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  flex-shrink: 0;
+}
+
+.mv-text-sub {
+  color: $mv-text-sub;
+}
+
+.mv-text-weak {
+  color: $mv-text-weak;
+}
+
+.mv-ellipsis {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.mv-safe-bottom {
+  height: constant(safe-area-inset-bottom);
+  height: env(safe-area-inset-bottom);
+}
+
+/* ============ 动画 ============ */
+@keyframes mv-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes mv-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes mv-pop {
+  0% {
+    transform: scale(0.6);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.12);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes mv-breathe {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.55;
+  }
+  50% {
+    transform: scale(1.18);
+    opacity: 0.9;
+  }
+}

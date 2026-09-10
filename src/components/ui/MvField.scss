@@ -1,0 +1,70 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.mv-field {
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(229, 220, 238, 0.7);
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.mv-field--error {
+  border-bottom-color: rgba(199, 123, 123, 0.6);
+}
+
+.mv-field__head {
+  @include mv-row(6px);
+  margin-bottom: 4px;
+}
+
+.mv-field__label {
+  font-size: $mv-font-sm;
+  color: $mv-text-sub;
+}
+
+.mv-field__required {
+  color: $mv-danger;
+  font-size: $mv-font-sm;
+}
+
+.mv-field__row {
+  @include mv-row(8px);
+  min-height: 26px;
+}
+
+.mv-field__input {
+  flex: 1;
+  min-width: 0;
+  font-size: $mv-font-md;
+  color: $mv-purple-ink;
+  height: 26px;
+  line-height: 26px;
+}
+
+.mv-field__placeholder {
+  color: $mv-text-weak;
+}
+
+.mv-field__value {
+  flex: 1;
+  min-width: 0;
+  font-size: $mv-font-md;
+  color: $mv-purple-ink;
+  @include mv-ellipsis();
+}
+
+.mv-field__value--empty {
+  color: $mv-text-weak;
+}
+
+.mv-field__arrow {
+  @include mv-icon(16px);
+}
+
+.mv-field__error {
+  margin-top: 4px;
+  font-size: $mv-font-xs;
+  color: $mv-danger;
+}

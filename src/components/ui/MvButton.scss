@@ -1,0 +1,80 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.mv-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  display: inline-flex;
+  min-height: 44px;
+  padding: 0 28px;
+  border-radius: $mv-radius-pill;
+  font-size: $mv-font-md;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  transition: transform 0.15s ease, opacity 0.15s ease;
+
+  &.mv-btn--block {
+    display: flex;
+    width: 100%;
+  }
+
+  &.mv-btn--sm {
+    min-height: 34px;
+    padding: 0 16px;
+    font-size: $mv-font-sm;
+  }
+
+  &.mv-btn--lg {
+    min-height: 50px;
+    font-size: $mv-font-lg;
+  }
+}
+
+.mv-btn--primary {
+  background: $mv-gradient-purple;
+  color: #fff;
+  box-shadow: $mv-shadow-purple;
+}
+
+.mv-btn--rose {
+  background: $mv-gradient-rose;
+  color: #5d4438;
+  box-shadow: 0 10px 24px rgba(216, 180, 168, 0.36);
+}
+
+.mv-btn--soft {
+  background: $mv-lavender-100;
+  color: $mv-purple-deep;
+}
+
+.mv-btn--ghost {
+  background: transparent;
+  color: $mv-purple-deep;
+  border: 1px solid $mv-lavender-200;
+}
+
+.mv-btn--text {
+  background: transparent;
+  color: $mv-text-sub;
+  font-size: $mv-font-sm;
+  min-height: 32px;
+  padding: 0 8px;
+}
+
+.mv-btn--disabled {
+  background: $mv-lavender-200;
+  color: #fff;
+  box-shadow: none;
+  opacity: 0.85;
+}
+
+.mv-btn--hover {
+  transform: scale(0.97);
+  opacity: 0.9;
+}
+
+.mv-btn__icon {
+  @include mv-icon(16px);
+}

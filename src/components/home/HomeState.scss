@@ -1,0 +1,256 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.home {
+  padding-bottom: 24px;
+}
+
+/* ---------- 头部名片 ---------- */
+.home__hero {
+  position: relative;
+  padding: 20px 20px 58px;
+  border-radius: 0 0 30px 30px;
+  background: $mv-gradient-header;
+  overflow: hidden;
+}
+
+.home__blob {
+  position: absolute;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.12);
+  top: -60px;
+  right: -30px;
+}
+
+.home__profile {
+  position: relative;
+  @include mv-row(12px);
+}
+
+.home__avatar {
+  width: 52px;
+  height: 52px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.24);
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  color: #fff;
+  font-size: 22px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.home__name-row {
+  @include mv-row(8px);
+  flex: 1;
+  min-width: 0;
+}
+
+.home__name {
+  font-size: 19px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.home__badge {
+  padding: 2px 8px;
+  border-radius: $mv-radius-pill;
+  background: rgba(255, 255, 255, 0.22);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  color: #fff;
+  font-size: $mv-font-xs;
+  flex-shrink: 0;
+}
+
+.home__staff {
+  display: block;
+  margin-top: 3px;
+  font-size: $mv-font-sm;
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.home__logout {
+  @include mv-press();
+  padding: 4px;
+}
+
+.home__metrics {
+  position: relative;
+  @include mv-card(16px, 20px);
+  margin: -42px 16px 0;
+  display: flex;
+  animation: mv-fade-up 0.36s 0.08s both;
+}
+
+.home__metric {
+  flex: 1;
+  text-align: center;
+  position: relative;
+}
+
+.home__metric + .home__metric::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 4px;
+  bottom: 4px;
+  width: 1px;
+  background: $mv-lavender-200;
+}
+
+.home__metric-value {
+  display: block;
+  font-size: 20px;
+  font-weight: 600;
+  color: $mv-purple-deep;
+}
+
+.home__metric-label {
+  display: block;
+  margin-top: 2px;
+  font-size: $mv-font-xs;
+  color: $mv-text-sub;
+}
+
+/* ---------- 本月进度 ---------- */
+.home__progress {
+  @include mv-card(16px, 20px);
+  margin: 14px 16px 0;
+}
+
+.home__progress-head {
+  @include mv-row(8px);
+  margin-bottom: 10px;
+}
+
+.home__progress-title {
+  font-size: $mv-font-md;
+  font-weight: 600;
+  color: $mv-purple-ink;
+}
+
+.home__progress-value {
+  font-size: $mv-font-sm;
+  color: $mv-text-sub;
+}
+
+.home__progress-track {
+  height: 8px;
+  border-radius: 8px;
+  background: $mv-lavender-100;
+  overflow: hidden;
+}
+
+.home__progress-bar {
+  height: 100%;
+  border-radius: 8px;
+  background: $mv-gradient-purple;
+  transition: width 0.4s ease;
+}
+
+.home__progress-desc {
+  display: block;
+  margin-top: 8px;
+  font-size: $mv-font-xs;
+  color: $mv-text-weak;
+}
+
+/* ---------- 待接任务 ---------- */
+.home__section {
+  margin: 20px 16px 0;
+}
+
+.home__section-title {
+  display: block;
+  font-size: $mv-font-md;
+  font-weight: 600;
+  color: $mv-purple-ink;
+  margin-bottom: 10px;
+}
+
+.home__task {
+  @include mv-card(16px, 20px);
+  animation: mv-fade-up 0.36s both;
+}
+
+.home__task-head {
+  @include mv-row(8px);
+}
+
+.home__task-shop {
+  flex: 1;
+  min-width: 0;
+  font-size: $mv-font-md;
+  font-weight: 600;
+  color: $mv-purple-ink;
+  @include mv-ellipsis();
+}
+
+.home__task-rows {
+  margin-top: 10px;
+}
+
+.home__task-row {
+  @include mv-row(8px);
+  padding: 5px 0;
+}
+
+.home__task-label {
+  font-size: $mv-font-sm;
+  color: $mv-text-sub;
+  flex-shrink: 0;
+}
+
+.home__task-value {
+  flex: 1;
+  font-size: $mv-font-sm;
+  color: $mv-purple-ink;
+  text-align: right;
+  @include mv-ellipsis();
+}
+
+.home__task-amount {
+  font-size: $mv-font-md;
+  font-weight: 600;
+  color: #c79b6d;
+}
+
+.home__task-actions {
+  @include mv-row(10px);
+  margin-top: 14px;
+}
+
+.home__empty {
+  @include mv-card(24px, 20px);
+  text-align: center;
+}
+
+.home__empty-icon {
+  margin: 0 auto 10px;
+}
+
+.home__empty-text {
+  font-size: $mv-font-sm;
+  color: $mv-text-sub;
+}
+
+/* ---------- 历史 ---------- */
+.home__history {
+  @include mv-card(16px 18px, 20px);
+}
+
+.home__foot-actions {
+  @include mv-row(20px);
+  justify-content: center;
+  margin-top: 22px;
+}
+
+.home__foot-text {
+  font-size: $mv-font-sm;
+  color: $mv-text-weak;
+  @include mv-press();
+}

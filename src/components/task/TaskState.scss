@@ -1,0 +1,145 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.task {
+  padding-bottom: 110px;
+}
+
+/* ---------- 门店信息 ---------- */
+.task__hero {
+  position: relative;
+  padding: 18px 20px 22px;
+  border-radius: 0 0 28px 28px;
+  background: $mv-gradient-header;
+  overflow: hidden;
+}
+
+.task__blob {
+  position: absolute;
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.12);
+  top: -70px;
+  right: -40px;
+}
+
+.task__hero-top {
+  position: relative;
+  @include mv-row(8px);
+}
+
+.task__shop {
+  flex: 1;
+  min-width: 0;
+  font-size: 19px;
+  font-weight: 600;
+  color: #fff;
+  @include mv-ellipsis();
+}
+
+.task__hero-tag {
+  padding: 2px 10px;
+  border-radius: $mv-radius-pill;
+  background: rgba(255, 255, 255, 0.22);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  color: #fff;
+  font-size: $mv-font-xs;
+  flex-shrink: 0;
+}
+
+.task__hero-tags {
+  position: relative;
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.task__hero-tag--status {
+  background: rgba(217, 160, 91, 0.24);
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+.task__hero-rows {
+  position: relative;
+  margin-top: 12px;
+}
+
+.task__hero-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  margin-top: 6px;
+}
+
+.task__hero-text {
+  flex: 1;
+  font-size: $mv-font-sm;
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.5;
+}
+
+.task__hero-amount {
+  position: relative;
+  margin-top: 14px;
+  padding: 10px 14px;
+  border-radius: $mv-radius;
+  background: rgba(255, 255, 255, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  @include mv-row(8px);
+}
+
+.task__hero-amount-label {
+  font-size: $mv-font-sm;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.task__hero-amount-value {
+  font-size: 18px;
+  font-weight: 600;
+  color: #fff;
+}
+
+/* ---------- 步骤 ---------- */
+.task__body {
+  margin-top: -10px;
+  padding: 0 16px;
+}
+
+.task__steps {
+  margin-bottom: 14px;
+}
+
+.task__progress-hint {
+  display: block;
+  margin-top: 12px;
+  text-align: center;
+  font-size: $mv-font-sm;
+  color: $mv-text-sub;
+}
+
+/* ---------- 底部提交栏 ---------- */
+.task__submit-bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 10px 16px;
+  padding-bottom: calc(10px + constant(safe-area-inset-bottom));
+  padding-bottom: calc(10px + env(safe-area-inset-bottom));
+  background: rgba(251, 248, 245, 0.96);
+  box-shadow: 0 -6px 20px rgba(122, 106, 134, 0.1);
+  z-index: 20;
+}
+
+.task__submit-hint {
+  display: block;
+  margin-bottom: 8px;
+  text-align: center;
+  font-size: $mv-font-xs;
+  color: $mv-text-sub;
+}
+
+.task__submit-hint--warn {
+  color: #b07a2e;
+}

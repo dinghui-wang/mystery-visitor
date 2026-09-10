@@ -1,0 +1,48 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.mv-card {
+  @include mv-card();
+  @include mv-fade-up();
+}
+
+.mv-card--flat {
+  box-shadow: none;
+  border: 1px solid $mv-lavender-200;
+}
+
+.mv-card__head {
+  @include mv-row(10px);
+  margin-bottom: 14px;
+}
+
+.mv-card__title-wrap {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 6px;
+  flex: 1;
+  min-width: 0;
+}
+
+.mv-card__title {
+  font-size: $mv-font-md;
+  font-weight: 600;
+  color: $mv-purple-ink;
+}
+
+.mv-card__subtitle {
+  font-size: $mv-font-xs;
+  color: $mv-text-weak;
+  font-weight: 400;
+}
+
+.mv-card__extra {
+  flex-shrink: 0;
+  font-size: $mv-font-sm;
+  color: $mv-text-sub;
+}
+
+.mv-card__body {
+  position: relative;
+}

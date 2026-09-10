@@ -1,0 +1,139 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.checkin {
+  margin-bottom: 14px;
+}
+
+.checkin__map {
+  position: relative;
+  height: 116px;
+  border-radius: $mv-radius;
+  background: linear-gradient(160deg, #f2ecf7 0%, #fbf6f3 100%);
+  border: 1px solid $mv-lavender-200;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.checkin__grid {
+  position: absolute;
+  inset: 0;
+  background-image: linear-gradient(rgba(156, 138, 165, 0.12) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(156, 138, 165, 0.12) 1px, transparent 1px);
+  background-size: 26px 26px;
+}
+
+.checkin__range {
+  position: absolute;
+  width: 108px;
+  height: 108px;
+  border-radius: 50%;
+  border: 1px dashed rgba(156, 138, 165, 0.5);
+  background: rgba(156, 138, 165, 0.08);
+}
+
+.checkin__pin {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.checkin__pin-text {
+  font-size: $mv-font-xs;
+  color: $mv-purple-deep;
+  font-weight: 500;
+}
+
+.checkin__coord {
+  position: absolute;
+  left: 12px;
+  bottom: 10px;
+  font-size: $mv-font-xs;
+  color: $mv-text-weak;
+}
+
+.checkin__rows {
+  margin-top: 12px;
+}
+
+.checkin__row {
+  @include mv-row(8px);
+  padding: 4px 0;
+}
+
+.checkin__label {
+  font-size: $mv-font-sm;
+  color: $mv-text-sub;
+}
+
+.checkin__value {
+  font-size: $mv-font-sm;
+  color: $mv-purple-ink;
+}
+
+.checkin__actions {
+  @include mv-row(10px);
+  margin-top: 14px;
+  align-items: center;
+}
+
+.checkin__actions-main {
+  flex: 1;
+}
+
+.checkin__sim {
+  font-size: $mv-font-sm;
+  color: $mv-text-sub;
+  text-decoration: underline;
+  text-decoration-color: $mv-lavender-200;
+  @include mv-press();
+}
+
+/* ---------- 成功态 ---------- */
+.checkin__done {
+  @include mv-row(12px);
+  padding: 12px;
+  border-radius: $mv-radius;
+  background: rgba(127, 168, 139, 0.1);
+  border: 1px solid rgba(127, 168, 139, 0.28);
+}
+
+.checkin__done-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: rgba(127, 168, 139, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.checkin__done-main {
+  flex: 1;
+  min-width: 0;
+}
+
+.checkin__done-title {
+  display: block;
+  font-size: $mv-font;
+  font-weight: 600;
+  color: #4f7a5c;
+}
+
+.checkin__done-meta {
+  display: block;
+  margin-top: 3px;
+  font-size: $mv-font-xs;
+  color: $mv-text-sub;
+  line-height: 1.5;
+}
+
+.checkin__redo {
+  margin-top: 10px;
+  text-align: right;
+}

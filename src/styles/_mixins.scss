@@ -1,0 +1,99 @@
+@use 'variables' as *;
+
+// 白底悬浮卡片
+@mixin mv-card($padding: 16px, $radius: $mv-radius-lg) {
+  background: $mv-card;
+  border-radius: $radius;
+  padding: $padding;
+  box-shadow: $mv-shadow;
+}
+
+// 横向两端对齐
+@mixin mv-row($gap: 8px) {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: $gap;
+}
+
+// 纵向排列
+@mixin mv-col($gap: 8px) {
+  display: flex;
+  flex-direction: column;
+  gap: $gap;
+}
+
+// 文本省略
+@mixin mv-ellipsis($lines: 1) {
+  @if $lines == 1 {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  } @else {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: $lines;
+    overflow: hidden;
+  }
+}
+
+// 胶囊标签
+@mixin mv-pill($bg: $mv-lavender-100, $fg: $mv-purple-deep) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3px 10px;
+  border-radius: $mv-radius-pill;
+  background: $bg;
+  color: $fg;
+  font-size: $mv-font-xs;
+  line-height: 16px;
+}
+
+// 按压反馈
+@mixin mv-press($scale: 0.97) {
+  transition: transform 0.15s ease, opacity 0.15s ease;
+
+  &:active {
+    transform: scale($scale);
+    opacity: 0.92;
+  }
+}
+
+// 主按钮（渐变 + 投影）
+@mixin mv-primary-btn($height: 46px) {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: $height;
+  border-radius: $mv-radius-pill;
+  background: $mv-gradient-purple;
+  color: #ffffff;
+  font-size: $mv-font-md;
+  font-weight: 500;
+  letter-spacing: 1px;
+  box-shadow: $mv-shadow-purple;
+  @include mv-press();
+}
+
+// 1px 描边卡片（浅紫）
+@mixin mv-outline($radius: $mv-radius) {
+  border: 1px solid $mv-lavender-200;
+  border-radius: $radius;
+}
+
+// 入场动画
+@mixin mv-fade-up($delay: 0ms) {
+  animation: mv-fade-up 0.32s cubic-bezier(0.22, 0.68, 0.35, 1) #{$delay} both;
+}
+
+// 背景图标
+@mixin mv-icon($size: 16px) {
+  width: $size;
+  height: $size;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  flex-shrink: 0;
+}

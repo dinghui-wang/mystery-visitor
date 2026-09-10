@@ -1,0 +1,63 @@
+// 莫兰迪紫 + 奶油白 · 美业神秘顾客主题色板
+// 设计稿宽度 375，px 会被 pxtransform 转为 rpx
+
+// ---------- 背景 ----------
+$mv-cream: #fbf8f5; // 页面底色（奶油白）
+$mv-card: #ffffff; // 卡片
+$mv-lavender-50: #f8f5fa; // 极浅紫（次级背景）
+$mv-lavender-100: #f1ebf6; // 浅紫（标签底 / 输入框底）
+$mv-lavender-200: #e5dcee; // 描边 / 分隔
+
+// ---------- 主色 ----------
+$mv-purple: #9c8aa5; // 莫兰迪紫（主）
+$mv-purple-deep: #7b6a86; // 深紫（按压 / 强调）
+$mv-purple-light: #b79bc4; // 浅紫（渐变起点）
+$mv-purple-ink: #4a3f52; // 紫调墨色（主文本）
+
+// ---------- 文本 ----------
+$mv-text: #4a3f52; // 主文本
+$mv-text-sub: #8b8195; // 次文本
+$mv-text-weak: #b5aebd; // 弱文本 / 占位符
+
+// ---------- 功能色 ----------
+$mv-rose: #d8b4a8; // 灰粉（点缀 / 荣誉）
+$mv-success: #7fa88b; // 成功
+$mv-warning: #d9a05b; // 警告
+$mv-danger: #c77b7b; // 错误
+
+// ---------- 圆角 ----------
+$mv-radius-xs: 8px;
+$mv-radius-sm: 12px;
+$mv-radius: 16px;
+$mv-radius-lg: 20px;
+$mv-radius-xl: 28px;
+$mv-radius-pill: 999px;
+
+// ---------- 阴影 ----------
+$mv-shadow: 0 6px 20px rgba(122, 106, 134, 0.08);
+$mv-shadow-hover: 0 10px 28px rgba(122, 106, 134, 0.14);
+$mv-shadow-purple: 0 10px 24px rgba(156, 138, 165, 0.32);
+
+// ---------- 间距 ----------
+$mv-gap-xs: 6px;
+$mv-gap-sm: 10px;
+$mv-gap: 14px;
+$mv-gap-lg: 20px;
+$mv-gap-xl: 28px;
+$mv-page-padding: 16px;
+
+// ---------- 字号 ----------
+$mv-font-xs: 11px;
+$mv-font-sm: 12px;
+$mv-font: 14px;
+$mv-font-md: 15px;
+$mv-font-lg: 17px;
+$mv-font-xl: 20px;
+$mv-font-xxl: 26px;
+
+// ---------- 渐变 ----------
+$mv-gradient-header: linear-gradient(135deg, #c1a8cf 0%, #9c8aa5 46%, #7b6a86 100%);
+$mv-gradient-purple: linear-gradient(135deg, #b79bc4 0%, #9c8aa5 100%);
+$mv-gradient-rose: linear-gradient(135deg, #e9d2ca 0%, #d8b4a8 100%);
+$mv-gradient-soft: linear-gradient(135deg, #f4eef8 0%, #fbf8f5 100%);
+$mv-gradient-cream: linear-gradient(180deg, #ffffff 0%, #fbf8f5 100%);

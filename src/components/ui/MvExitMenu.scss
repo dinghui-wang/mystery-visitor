@@ -1,0 +1,12 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.mv-exit-menu {
+  @include mv-press();
+  padding: 4px;
+  flex-shrink: 0;
+}
+
+.mv-exit-menu--dark {
+  padding: 4px;
+}

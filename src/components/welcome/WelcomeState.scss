@@ -1,0 +1,240 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.welcome {
+  padding-bottom: 20px;
+}
+
+/* ---------- Hero ---------- */
+.welcome__hero {
+  position: relative;
+  padding: 36px 24px 46px;
+  border-radius: 0 0 32px 32px;
+  background: $mv-gradient-header;
+  overflow: hidden;
+  color: #fff;
+}
+
+.welcome__blob {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.14);
+  filter: blur(2px);
+}
+
+.welcome__blob--1 {
+  width: 180px;
+  height: 180px;
+  top: -70px;
+  right: -40px;
+}
+
+.welcome__blob--2 {
+  width: 120px;
+  height: 120px;
+  bottom: -50px;
+  left: -30px;
+  background: rgba(216, 180, 168, 0.28);
+}
+
+.welcome__spark {
+  position: absolute;
+  top: 28px;
+  right: 30px;
+  opacity: 0.7;
+}
+
+.welcome__logo {
+  position: relative;
+  width: 52px;
+  height: 52px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 18px;
+}
+
+.welcome__brand {
+  position: relative;
+  display: block;
+  font-size: 30px;
+  font-weight: 600;
+  letter-spacing: 3px;
+}
+
+.welcome__en {
+  position: relative;
+  display: block;
+  margin-top: 4px;
+  font-size: $mv-font-xs;
+  letter-spacing: 4px;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.welcome__slogan {
+  position: relative;
+  display: block;
+  margin-top: 16px;
+  font-size: $mv-font-md;
+  color: rgba(255, 255, 255, 0.92);
+  line-height: 1.6;
+}
+
+/* ---------- 数据条 ---------- */
+.welcome__stats {
+  @include mv-card(18px, 20px);
+  display: flex;
+  margin: -26px 16px 0;
+  position: relative;
+  animation: mv-fade-up 0.4s 0.1s both;
+}
+
+.welcome__stat {
+  flex: 1;
+  text-align: center;
+  position: relative;
+}
+
+.welcome__stat + .welcome__stat::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 6px;
+  bottom: 6px;
+  width: 1px;
+  background: $mv-lavender-200;
+}
+
+.welcome__stat-value {
+  display: block;
+  font-size: 20px;
+  font-weight: 600;
+  color: $mv-purple-deep;
+}
+
+.welcome__stat-label {
+  display: block;
+  margin-top: 2px;
+  font-size: $mv-font-xs;
+  color: $mv-text-sub;
+}
+
+/* ---------- 品类 ---------- */
+.welcome__section {
+  margin: 20px 16px 0;
+}
+
+.welcome__section-title {
+  display: block;
+  font-size: $mv-font-md;
+  font-weight: 600;
+  color: $mv-purple-ink;
+  margin-bottom: 10px;
+}
+
+.welcome__types {
+  display: flex;
+  gap: 10px;
+}
+
+.welcome__type {
+  flex: 1;
+  padding: 14px 10px;
+  border-radius: $mv-radius;
+  background: #fff;
+  box-shadow: $mv-shadow;
+  text-align: center;
+  @include mv-press();
+}
+
+.welcome__type-name {
+  display: block;
+  font-size: $mv-font;
+  font-weight: 600;
+  color: $mv-purple-ink;
+}
+
+.welcome__type-desc {
+  display: block;
+  margin-top: 4px;
+  font-size: $mv-font-xs;
+  color: $mv-text-sub;
+}
+
+/* ---------- 流程 ---------- */
+.welcome__flow {
+  @include mv-card(18px, 20px);
+}
+
+.welcome__flow-item {
+  @include mv-row(12px);
+  padding: 10px 0;
+}
+
+.welcome__flow-item + .welcome__flow-item {
+  border-top: 1px dashed rgba(229, 220, 238, 0.9);
+}
+
+.welcome__flow-no {
+  width: 34px;
+  height: 34px;
+  border-radius: 12px;
+  background: $mv-lavender-100;
+  color: $mv-purple-deep;
+  font-size: $mv-font-sm;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.welcome__flow-text {
+  flex: 1;
+}
+
+.welcome__flow-title {
+  display: block;
+  font-size: $mv-font;
+  font-weight: 500;
+  color: $mv-purple-ink;
+}
+
+.welcome__flow-desc {
+  display: block;
+  margin-top: 2px;
+  font-size: $mv-font-xs;
+  color: $mv-text-sub;
+}
+
+/* ---------- 底部 ---------- */
+.welcome__footer {
+  margin: 26px 16px 0;
+}
+
+.welcome__demo {
+  display: block;
+  margin-top: 12px;
+  text-align: center;
+  font-size: $mv-font-sm;
+  color: $mv-text-weak;
+}
+
+.welcome__demo-highlight {
+  color: $mv-purple-deep;
+  font-weight: 500;
+}
+
+.welcome__reset {
+  display: block;
+  margin-top: 10px;
+  text-align: center;
+  font-size: $mv-font-sm;
+  color: $mv-purple-deep;
+  text-decoration: underline;
+  text-decoration-color: $mv-lavender-200;
+  @include mv-press();
+}

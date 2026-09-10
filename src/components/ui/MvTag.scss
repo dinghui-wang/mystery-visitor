@@ -1,0 +1,47 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.mv-tag {
+  @include mv-pill();
+  flex-shrink: 0;
+  font-weight: 500;
+}
+
+.mv-tag--purple {
+  background: rgba(156, 138, 165, 0.12);
+  color: $mv-purple-deep;
+}
+
+.mv-tag--rose {
+  background: rgba(216, 180, 168, 0.2);
+  color: #9c6d5c;
+}
+
+.mv-tag--success {
+  background: rgba(127, 168, 139, 0.16);
+  color: #4f7a5c;
+}
+
+.mv-tag--warning {
+  background: rgba(217, 160, 91, 0.16);
+  color: #9c6f2a;
+}
+
+.mv-tag--danger {
+  background: rgba(199, 123, 123, 0.14);
+  color: #a65656;
+}
+
+.mv-tag--muted {
+  background: $mv-lavender-100;
+  color: $mv-text-sub;
+}
+
+.mv-tag--dot::before {
+  content: '';
+  width: 5px;
+  height: 5px;
+  margin-right: 5px;
+  border-radius: 50%;
+  background: currentColor;
+}

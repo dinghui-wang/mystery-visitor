@@ -1,0 +1,56 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.mv-sheet {
+  display: flex;
+  flex-direction: column;
+  max-height: 84vh;
+  padding: 8px 20px 0;
+  background: $mv-cream;
+  border-radius: $mv-radius-xl $mv-radius-xl 0 0;
+  overflow: hidden;
+}
+
+.mv-sheet__bar {
+  width: 40px;
+  height: 4px;
+  margin: 6px auto 12px;
+  border-radius: 4px;
+  background: $mv-lavender-200;
+}
+
+.mv-sheet__head {
+  @include mv-row(10px);
+  padding-bottom: 12px;
+}
+
+.mv-sheet__title {
+  flex: 1;
+  font-size: $mv-font-lg;
+  font-weight: 600;
+  color: $mv-purple-ink;
+}
+
+.mv-sheet__subtitle {
+  font-size: $mv-font-sm;
+  color: $mv-text-sub;
+  margin-top: 2px;
+}
+
+.mv-sheet__close {
+  @include mv-icon(18px);
+  padding: 4px;
+}
+
+.mv-sheet__body {
+  flex: 1;
+  max-height: 60vh;
+  padding-bottom: 8px;
+}
+
+.mv-sheet__footer {
+  padding: 12px 0;
+  padding-bottom: calc(12px + constant(safe-area-inset-bottom));
+  padding-bottom: calc(12px + env(safe-area-inset-bottom));
+  background: $mv-cream;
+}

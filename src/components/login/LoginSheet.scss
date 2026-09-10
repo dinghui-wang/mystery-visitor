@@ -1,0 +1,43 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.login {
+  padding-bottom: 8px;
+}
+
+.login__form {
+  @include mv-card(4px 18px, 20px);
+  margin-bottom: 14px;
+}
+
+.login__tip {
+  @include mv-row(6px);
+  padding: 10px 14px;
+  border-radius: $mv-radius;
+  background: rgba(216, 180, 168, 0.16);
+  margin-bottom: 14px;
+}
+
+.login__tip-text {
+  flex: 1;
+  font-size: $mv-font-sm;
+  color: #9c6d5c;
+  line-height: 1.5;
+}
+
+.login__tip-action {
+  font-size: $mv-font-sm;
+  font-weight: 600;
+  color: $mv-purple-deep;
+  flex-shrink: 0;
+  @include mv-press();
+}
+
+.login__note {
+  display: block;
+  margin-top: 12px;
+  text-align: center;
+  font-size: $mv-font-xs;
+  color: $mv-text-weak;
+  line-height: 1.6;
+}

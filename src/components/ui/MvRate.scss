@@ -1,0 +1,29 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.mv-rate {
+  @include mv-row(6px);
+}
+
+.mv-rate__star {
+  font-size: 24px;
+  line-height: 24px;
+  color: $mv-lavender-200;
+  transition: transform 0.18s ease;
+}
+
+.mv-rate__star--on {
+  color: #d8b4a8;
+  animation: mv-pop 0.28s ease;
+}
+
+.mv-rate--sm .mv-rate__star {
+  font-size: 18px;
+  line-height: 18px;
+}
+
+.mv-rate__hint {
+  margin-left: 6px;
+  font-size: $mv-font-sm;
+  color: $mv-text-sub;
+}

@@ -1,0 +1,102 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.mcard {
+  margin-bottom: 14px;
+}
+
+.mcard__intro {
+  padding: 12px;
+  border-radius: $mv-radius;
+  background: $mv-gradient-soft;
+  border: 1px solid rgba(229, 220, 238, 0.9);
+}
+
+.mcard__intro-text {
+  font-size: $mv-font-sm;
+  color: $mv-text-sub;
+  line-height: 1.6;
+}
+
+.mcard__btn {
+  margin-top: 14px;
+}
+
+.mcard__record {
+  padding: 14px;
+  border-radius: $mv-radius-lg;
+  background: linear-gradient(140deg, #f6f1fa 0%, #fdf7f5 100%);
+  border: 1px solid rgba(216, 180, 168, 0.5);
+}
+
+.mcard__record-head {
+  @include mv-row(10px);
+  margin-bottom: 10px;
+}
+
+.mcard__record-type {
+  flex: 1;
+  min-width: 0;
+  font-size: $mv-font-md;
+  font-weight: 600;
+  color: $mv-purple-ink;
+  @include mv-ellipsis();
+}
+
+.mcard__rows {
+  margin-top: 4px;
+}
+
+.mcard__row {
+  @include mv-row(8px);
+  padding: 4px 0;
+}
+
+.mcard__label {
+  font-size: $mv-font-sm;
+  color: $mv-text-sub;
+  flex-shrink: 0;
+}
+
+.mcard__value {
+  flex: 1;
+  font-size: $mv-font-sm;
+  color: $mv-purple-ink;
+  text-align: right;
+  @include mv-ellipsis();
+}
+
+.mcard__value--amount {
+  font-size: $mv-font-md;
+  font-weight: 600;
+  color: #c79b6d;
+}
+
+.mcard__proof {
+  @include mv-row(8px);
+  margin-top: 10px;
+  padding: 8px 10px;
+  border-radius: $mv-radius-sm;
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.mcard__proof-text {
+  flex: 1;
+  font-size: $mv-font-sm;
+  color: $mv-text-sub;
+}
+
+.mcard__proof-img {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  flex-shrink: 0;
+}
+
+.mcard__remark {
+  display: block;
+  margin-top: 8px;
+  font-size: $mv-font-xs;
+  color: $mv-text-sub;
+  line-height: 1.5;
+}

@@ -1,0 +1,78 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.mv-stepbar {
+  @include mv-row(0);
+  align-items: flex-start;
+}
+
+.mv-stepbar__item {
+  flex: 1;
+  @include mv-col(6px);
+  align-items: center;
+}
+
+.mv-stepbar__dot {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: $mv-lavender-100;
+  color: $mv-text-weak;
+  font-size: $mv-font-sm;
+  font-weight: 600;
+  position: relative;
+  transition: all 0.25s ease;
+}
+
+.mv-stepbar__dot--active {
+  background: $mv-gradient-purple;
+  color: #fff;
+  box-shadow: 0 6px 14px rgba(156, 138, 165, 0.36);
+}
+
+.mv-stepbar__dot--done {
+  background: rgba(127, 168, 139, 0.16);
+  color: $mv-success;
+}
+
+.mv-stepbar__dot-icon {
+  @include mv-icon(14px);
+}
+
+.mv-stepbar__pulse {
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 1px solid rgba(156, 138, 165, 0.45);
+  animation: mv-breathe 1.8s ease-in-out infinite;
+}
+
+.mv-stepbar__label {
+  font-size: $mv-font-xs;
+  color: $mv-text-weak;
+  text-align: center;
+}
+
+.mv-stepbar__label--active {
+  color: $mv-purple-deep;
+  font-weight: 600;
+}
+
+.mv-stepbar__label--done {
+  color: $mv-text-sub;
+}
+
+.mv-stepbar__line {
+  flex: 1;
+  height: 2px;
+  margin-top: 12px;
+  background: $mv-lavender-200;
+  border-radius: 2px;
+}
+
+.mv-stepbar__line--done {
+  background: rgba(127, 168, 139, 0.55);
+}

@@ -1,0 +1,75 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.mcsheet {
+  padding-bottom: 8px;
+}
+
+.mcsheet__form {
+  @include mv-card(4px 18px, 20px);
+  margin-bottom: 12px;
+}
+
+.mcsheet__section {
+  margin-bottom: 12px;
+}
+
+.mcsheet__section-title {
+  display: block;
+  font-size: $mv-font-sm;
+  font-weight: 600;
+  color: $mv-purple-ink;
+  margin-bottom: 4px;
+}
+
+.mcsheet__proof {
+  @include mv-row(10px);
+  padding: 12px;
+  border-radius: $mv-radius;
+  border: 1px dashed $mv-lavender-200;
+  background: $mv-lavender-50;
+}
+
+.mcsheet__proof-main {
+  flex: 1;
+}
+
+.mcsheet__proof-title {
+  display: block;
+  font-size: $mv-font;
+  color: $mv-purple-ink;
+}
+
+.mcsheet__proof-desc {
+  display: block;
+  margin-top: 2px;
+  font-size: $mv-font-xs;
+  color: $mv-text-sub;
+}
+
+.mcsheet__proof-img {
+  width: 52px;
+  height: 52px;
+  border-radius: 12px;
+  flex-shrink: 0;
+}
+
+.mcsheet__textarea {
+  width: 100%;
+  min-height: 76px;
+  padding: 10px 12px;
+  border-radius: $mv-radius-sm;
+  background: $mv-lavender-50;
+  border: 1px solid $mv-lavender-200;
+  font-size: $mv-font;
+  color: $mv-purple-ink;
+  line-height: 1.6;
+}
+
+.mcsheet__tip {
+  display: block;
+  font-size: $mv-font-xs;
+  color: $mv-text-weak;
+  line-height: 1.6;
+  padding: 0 4px 6px;
+}
