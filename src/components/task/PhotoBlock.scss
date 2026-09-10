@@ -5,100 +5,8 @@
   margin-bottom: 14px;
 }
 
-.photo__tabs {
-  display: flex;
-  gap: 8px;
-  margin-bottom: 12px;
-  overflow: hidden;
-}
-
-.photo__tab {
-  flex: 1;
-  padding: 7px 0;
-  text-align: center;
-  border-radius: $mv-radius-pill;
-  background: $mv-lavender-50;
-  border: 1px solid transparent;
-  font-size: $mv-font-sm;
-  color: $mv-text-sub;
-  @include mv-press();
-}
-
-.photo__tab--active {
-  background: rgba(156, 138, 165, 0.14);
-  border-color: rgba(156, 138, 165, 0.35);
-  color: $mv-purple-deep;
-  font-weight: 600;
-}
-
-.photo__tab--done {
-  color: $mv-success;
-}
-
-.photo__tab-note {
-  display: block;
-  font-size: $mv-font-xs;
-  color: $mv-text-weak;
-}
-
-.photo__tip {
-  display: block;
-  margin-bottom: 10px;
-  font-size: $mv-font-xs;
-  color: $mv-text-sub;
-  line-height: 1.5;
-}
-
-.photo__grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.photo__cell {
-  width: calc((100% - 16px) / 3);
-  height: 96px;
-  border-radius: $mv-radius-sm;
-  overflow: hidden;
-  position: relative;
-}
-
-.photo__img {
-  width: 100%;
-  height: 100%;
-  display: block;
-}
-
-.photo__del {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 22px;
-  height: 22px;
-  border-radius: 0 0 0 12px;
-  background: rgba(74, 63, 82, 0.6);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.photo__add {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 4px;
-  border: 1px dashed $mv-lavender-200;
-  background: $mv-lavender-50;
-  @include mv-press();
-}
-
-.photo__add-text {
-  font-size: $mv-font-xs;
-  color: $mv-text-sub;
-}
-
 .photo__missing {
+  display: block;
   margin-top: 12px;
   padding: 8px 12px;
   border-radius: $mv-radius-sm;
@@ -106,4 +14,20 @@
   font-size: $mv-font-xs;
   color: #9c6f2a;
   line-height: 1.5;
+}
+
+.photo__card-hint {
+  display: block;
+  margin-top: 12px;
+  padding: 8px 12px;
+  border-radius: $mv-radius-sm;
+  background: $mv-lavender-50;
+  font-size: $mv-font-xs;
+  color: $mv-text-sub;
+  line-height: 1.5;
+}
+
+.photo__card-hint--ok {
+  background: rgba(127, 168, 139, 0.12);
+  color: #4f7a5c;
 }

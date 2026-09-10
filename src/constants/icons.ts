@@ -6,6 +6,7 @@ export const ICON_PATHS = {
   location: `<path d='M12 21.2s7-6.3 7-11.2a7 7 0 1 0-14 0c0 4.9 7 11.2 7 11.2z'/><circle cx='12' cy='10' r='2.6'/>`,
   locationSolid: `<path d='M12 2a7.2 7.2 0 0 0-7.2 7.2c0 5 7.2 12.8 7.2 12.8s7.2-7.8 7.2-12.8A7.2 7.2 0 0 0 12 2zm0 9.8a2.8 2.8 0 1 1 0-5.6 2.8 2.8 0 0 1 0 5.6z'/>`,
   camera: `<path d='M3 9a2 2 0 0 1 2-2h1.6l1-2.2h6.8l1 2.2H17a2 2 0 0 1 2 2v8.5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z'/><circle cx='12' cy='13' r='3.4'/>`,
+  scissors: `<circle cx='6' cy='6' r='2.8'/><circle cx='6' cy='18' r='2.8'/><path d='M20 4L8.1 15.9'/><path d='M14.5 14.5L20 20'/><path d='M8.1 8.1L12 12'/>`,
   card: `<rect x='2.5' y='5' width='19' height='14' rx='2.6'/><path d='M2.5 9.8h19'/><path d='M6.2 14.6h4.4'/>`,
   check: `<path d='M4.6 12.6l4.9 4.9L19.4 7.6'/>`,
   checkSolid: `<path d='M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm-1.1 14.4-4-4 1.5-1.5 2.5 2.5 5.2-5.2 1.5 1.5z'/>`,

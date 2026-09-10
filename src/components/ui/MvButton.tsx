@@ -14,6 +14,7 @@ interface MvButtonProps {
   disabled?: boolean
   loading?: boolean
   iconName?: IconName
+  className?: string
   onClick?: () => void
 }
 
@@ -25,6 +26,7 @@ export default function MvButton({
   disabled = false,
   loading = false,
   iconName,
+  className,
   onClick,
 }: MvButtonProps) {
   const iconColor =
@@ -40,7 +42,8 @@ export default function MvButton({
         'mv-btn',
         `mv-btn--${disabled ? 'disabled' : type}`,
         size !== 'md' && `mv-btn--${size}`,
-        block && 'mv-btn--block'
+        block && 'mv-btn--block',
+        className
       )}
       hoverClass={disabled || loading ? 'none' : 'mv-btn--hover'}
       disabled={disabled || loading}

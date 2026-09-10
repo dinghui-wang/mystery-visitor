@@ -1,7 +1,7 @@
 import { getStorageSync, removeStorageSync, setStorageSync } from '@tarojs/taro'
 import type { VisitorState } from '../types/business'
 
-const STORAGE_KEY = 'mv_visitor_state_v1'
+const STORAGE_KEY = 'mv_visitor_state_v9'
 
 /**
  * 是否持久化演示进度。

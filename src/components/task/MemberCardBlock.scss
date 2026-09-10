@@ -43,8 +43,92 @@
   @include mv-ellipsis();
 }
 
+.mcard__record--pending {
+  background: linear-gradient(140deg, #fdf6ec 0%, #fdf7f5 100%);
+  border-color: rgba(217, 160, 91, 0.5);
+}
+
+.mcard__record--rejected {
+  background: linear-gradient(140deg, #fbeff0 0%, #fdf7f5 100%);
+  border-color: rgba(199, 123, 123, 0.45);
+}
+
+.mcard__record--passed {
+  background: linear-gradient(140deg, #f2f7f3 0%, #fbf8f5 100%);
+  border-color: rgba(127, 168, 139, 0.45);
+}
+
+.mcard__audit {
+  @include mv-row(6px);
+  align-items: flex-start;
+  margin-top: 10px;
+  padding: 10px 12px;
+  border-radius: $mv-radius-sm;
+  background: rgba(217, 160, 91, 0.14);
+}
+
+.mcard__audit-text {
+  flex: 1;
+  font-size: $mv-font-xs;
+  color: #9c6f2a;
+  line-height: 1.6;
+}
+
+.mcard__reason {
+  margin-top: 10px;
+  padding: 10px 12px;
+  border-radius: $mv-radius-sm;
+  background: rgba(199, 123, 123, 0.12);
+}
+
+.mcard__reason-text {
+  font-size: $mv-font-xs;
+  color: #a65656;
+  line-height: 1.6;
+}
+
+.mcard__audit-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.mcard__audit-btn {
+  flex: 1;
+  min-width: 0;
+}
+
+.mcard__record-amount {
+  font-size: 18px;
+  font-weight: 600;
+  color: #c79b6d;
+}
+
+/* 持卡人（下发对象） */
+.mcard__holder {
+  @include mv-row(8px);
+  justify-content: flex-start;
+  padding: 10px 12px;
+  border-radius: $mv-radius-sm;
+  background: rgba(255, 255, 255, 0.75);
+  border: 1px solid rgba(229, 220, 238, 0.9);
+}
+
+.mcard__holder-text {
+  flex: 1;
+  min-width: 0;
+  font-size: $mv-font;
+  font-weight: 600;
+  color: $mv-purple-ink;
+  @include mv-ellipsis();
+}
+
+.mcard__audit-info {
+  padding: 4px 0 2px;
+}
+
 .mcard__rows {
-  margin-top: 4px;
+  margin-top: 10px;
 }
 
 .mcard__row {

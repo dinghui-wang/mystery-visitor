@@ -7,7 +7,7 @@ import {
   useReducer,
   type ReactNode,
 } from 'react'
-import { createInitialState } from '../services/mock'
+import { createInitialState, MOCK_CARD_STOCK } from '../services/mock'
 import { clearState, PERSIST_ENABLED, readState, writeState } from '../services/storage'
 import { formatNow } from '../utils/date'
 import type {
@@ -22,6 +22,24 @@ import type {
 } from '../types/business'
 
 const initialState = createInitialState()
+
+/** 审核通过后系统自动从已有会员卡库中下发一张 */
+function buildCardIssue(): MemberCardIssue {
+  const stock = MOCK_CARD_STOCK[0]
+  return {
+    stockId: stock.id,
+    cardType: stock.cardType,
+    cardNo: stock.cardNo,
+    faceValue: stock.faceValue,
+    benefit: stock.benefit,
+    expireAt: stock.expireAt,
+    holderName: stock.holderName,
+    holderPhone: stock.holderPhone,
+    photoPath: '',
+    remark: '',
+    issuedAt: formatNow(),
+  }
+}
 
 /** 启动时合并缓存进度，保证刷新后仍能继续演示 */
 function bootstrap(): VisitorState {
@@ -64,6 +82,16 @@ function reducer(state: VisitorState, action: VisitorAction): VisitorState {
           : state.pool,
       }
 
+    /** 已登录状态下从欢迎页返回工作台 */
+    case 'goHome':
+      return state.profile ? { ...state, pageState: 'home' } : state
+
+    /** 继续中断的任务：已提交则回到回访页，否则回到任务页 */
+    case 'resumeTask': {
+      if (!state.activeTask) return state
+      return { ...state, pageState: state.activeTask.submittedAt ? 'review' : 'task' }
+    }
+
     case 'acceptTask': {
       const target = state.pool.find((task) => task.id === action.taskId)
       if (!target) return state
@@ -90,8 +118,31 @@ function reducer(state: VisitorState, action: VisitorAction): VisitorState {
         photos: task.photos.filter((photo) => photo.id !== action.photoId),
       }))
 
-    case 'issueCard':
-      return updateActiveTask(state, (task) => ({ ...task, cardIssue: action.issue }))
+    case 'submitPhotoAudit':
+      return updateActiveTask(state, (task) => ({
+        ...task,
+        photoAudit: {
+          status: '待审核',
+          submittedAt: formatNow(),
+          auditor: '',
+          auditedAt: '',
+          remark: '',
+        },
+      }))
+
+    case 'auditPhoto':
+      return updateActiveTask(state, (task) => ({
+        ...task,
+        photoAudit: {
+          status: action.status,
+          submittedAt: task.photoAudit?.submittedAt ?? formatNow(),
+          auditor: action.auditor,
+          auditedAt: formatNow(),
+          remark: action.remark,
+        },
+        // 审核通过后由系统自动下发一张已有会员卡；驳回则不发卡
+        cardIssue: action.status === '已通过' ? buildCardIssue() : null,
+      }))
 
     case 'submitTask': {
       const next = updateActiveTask(state, (task) => ({
@@ -116,7 +167,8 @@ function reducer(state: VisitorState, action: VisitorAction): VisitorState {
       }
       return {
         ...state,
-        pageState: 'home',
+        // 提交回访后回到欢迎页，任务已归入历史记录
+        pageState: 'welcome',
         activeTask: null,
         history: [record, ...state.history],
         profile: state.profile
@@ -142,7 +194,10 @@ interface VisitorContextValue {
   checkIn: (record: CheckInRecord) => void
   addPhotos: (photos: VisitPhoto[]) => void
   removePhoto: (photoId: string) => void
-  issueCard: (issue: MemberCardIssue) => void
+  submitPhotoAudit: () => void
+  auditPhoto: (status: '已通过' | '已驳回', auditor: string, remark?: string) => void
+  goHome: () => void
+  resumeTask: () => void
   submitTask: () => void
   submitReview: (review: ReviewRecord) => void
   reset: () => void
@@ -180,10 +235,14 @@ export function VisitorProvider({ children }: { children?: ReactNode }) {
     (photoId: string) => dispatch({ type: 'removePhoto', photoId }),
     []
   )
-  const issueCard = useCallback(
-    (issue: MemberCardIssue) => dispatch({ type: 'issueCard', issue }),
+  const submitPhotoAudit = useCallback(() => dispatch({ type: 'submitPhotoAudit' }), [])
+  const auditPhoto = useCallback(
+    (status: '已通过' | '已驳回', auditor: string, remark = '') =>
+      dispatch({ type: 'auditPhoto', status, auditor, remark }),
     []
   )
+  const goHome = useCallback(() => dispatch({ type: 'goHome' }), [])
+  const resumeTask = useCallback(() => dispatch({ type: 'resumeTask' }), [])
   const submitTask = useCallback(
     () => dispatch({ type: 'submitTask', submittedAt: formatNow() }),
     []
@@ -203,7 +262,10 @@ export function VisitorProvider({ children }: { children?: ReactNode }) {
       checkIn,
       addPhotos,
       removePhoto,
-      issueCard,
+      submitPhotoAudit,
+      auditPhoto,
+      goHome,
+      resumeTask,
       submitTask,
       submitReview,
       reset,
@@ -216,7 +278,10 @@ export function VisitorProvider({ children }: { children?: ReactNode }) {
       checkIn,
       addPhotos,
       removePhoto,
-      issueCard,
+      submitPhotoAudit,
+      auditPhoto,
+      goHome,
+      resumeTask,
       submitTask,
       submitReview,
       reset,

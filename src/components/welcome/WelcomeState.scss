@@ -5,10 +5,10 @@
   padding-bottom: 20px;
 }
 
-/* ---------- Hero ---------- */
+/* ---------- 品牌头部 ---------- */
 .welcome__hero {
   position: relative;
-  padding: 36px 24px 46px;
+  padding: 34px 24px 42px;
   border-radius: 0 0 32px 32px;
   background: $mv-gradient-header;
   overflow: hidden;
@@ -19,112 +19,89 @@
   position: absolute;
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.14);
-  filter: blur(2px);
 }
 
 .welcome__blob--1 {
-  width: 180px;
-  height: 180px;
-  top: -70px;
-  right: -40px;
+  width: 190px;
+  height: 190px;
+  top: -80px;
+  right: -50px;
 }
 
 .welcome__blob--2 {
   width: 120px;
   height: 120px;
-  bottom: -50px;
-  left: -30px;
+  bottom: -56px;
+  left: -34px;
   background: rgba(216, 180, 168, 0.28);
 }
 
-.welcome__spark {
-  position: absolute;
-  top: 28px;
-  right: 30px;
-  opacity: 0.7;
+.welcome__brand-row {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
 .welcome__logo {
-  position: relative;
-  width: 52px;
-  height: 52px;
+  width: 50px;
+  height: 50px;
   border-radius: 18px;
   background: rgba(255, 255, 255, 0.2);
   border: 1px solid rgba(255, 255, 255, 0.4);
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 18px;
+  flex-shrink: 0;
 }
 
 .welcome__brand {
-  position: relative;
   display: block;
-  font-size: 30px;
+  font-size: 21px;
   font-weight: 600;
-  letter-spacing: 3px;
+  letter-spacing: 2px;
 }
 
-.welcome__en {
-  position: relative;
+.welcome__system {
   display: block;
-  margin-top: 4px;
-  font-size: $mv-font-xs;
-  letter-spacing: 4px;
-  color: rgba(255, 255, 255, 0.72);
+  margin-top: 3px;
+  font-size: $mv-font-sm;
+  letter-spacing: 3px;
+  color: rgba(255, 255, 255, 0.78);
 }
 
 .welcome__slogan {
   position: relative;
   display: block;
-  margin-top: 16px;
+  margin-top: 20px;
   font-size: $mv-font-md;
-  color: rgba(255, 255, 255, 0.92);
-  line-height: 1.6;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.94);
 }
 
-/* ---------- 数据条 ---------- */
-.welcome__stats {
-  @include mv-card(18px, 20px);
+/* ---------- 主体 ---------- */
+.welcome__body {
+  margin-top: -18px;
+  padding: 0 16px;
+}
+
+.welcome__notice {
+  @include mv-card(14px 16px, 20px);
   display: flex;
-  margin: -26px 16px 0;
-  position: relative;
-  animation: mv-fade-up 0.4s 0.1s both;
+  align-items: flex-start;
+  gap: 8px;
+  animation: mv-fade-up 0.36s both;
 }
 
-.welcome__stat {
+.welcome__notice-text {
   flex: 1;
-  text-align: center;
-  position: relative;
-}
-
-.welcome__stat + .welcome__stat::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 6px;
-  bottom: 6px;
-  width: 1px;
-  background: $mv-lavender-200;
-}
-
-.welcome__stat-value {
-  display: block;
-  font-size: 20px;
-  font-weight: 600;
-  color: $mv-purple-deep;
-}
-
-.welcome__stat-label {
-  display: block;
-  margin-top: 2px;
-  font-size: $mv-font-xs;
+  font-size: $mv-font-sm;
+  line-height: 1.6;
   color: $mv-text-sub;
 }
 
-/* ---------- 品类 ---------- */
 .welcome__section {
-  margin: 20px 16px 0;
+  margin-top: 16px;
 }
 
 .welcome__section-title {
@@ -135,42 +112,14 @@
   margin-bottom: 10px;
 }
 
-.welcome__types {
-  display: flex;
-  gap: 10px;
-}
-
-.welcome__type {
-  flex: 1;
-  padding: 14px 10px;
-  border-radius: $mv-radius;
-  background: #fff;
-  box-shadow: $mv-shadow;
-  text-align: center;
-  @include mv-press();
-}
-
-.welcome__type-name {
-  display: block;
-  font-size: $mv-font;
-  font-weight: 600;
-  color: $mv-purple-ink;
-}
-
-.welcome__type-desc {
-  display: block;
-  margin-top: 4px;
-  font-size: $mv-font-xs;
-  color: $mv-text-sub;
-}
-
-/* ---------- 流程 ---------- */
 .welcome__flow {
-  @include mv-card(18px, 20px);
+  @include mv-card(16px 18px, 20px);
 }
 
 .welcome__flow-item {
-  @include mv-row(12px);
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
   padding: 10px 0;
 }
 
@@ -179,9 +128,9 @@
 }
 
 .welcome__flow-no {
-  width: 34px;
-  height: 34px;
-  border-radius: 12px;
+  width: 32px;
+  height: 32px;
+  border-radius: 11px;
   background: $mv-lavender-100;
   color: $mv-purple-deep;
   font-size: $mv-font-sm;
@@ -194,6 +143,7 @@
 
 .welcome__flow-text {
   flex: 1;
+  min-width: 0;
 }
 
 .welcome__flow-title {
@@ -207,6 +157,7 @@
   display: block;
   margin-top: 2px;
   font-size: $mv-font-xs;
+  line-height: 1.5;
   color: $mv-text-sub;
 }
 
@@ -237,4 +188,12 @@
   text-decoration: underline;
   text-decoration-color: $mv-lavender-200;
   @include mv-press();
+}
+
+.welcome__version {
+  display: block;
+  margin-top: 22px;
+  text-align: center;
+  font-size: $mv-font-xs;
+  color: $mv-text-weak;
 }

@@ -20,7 +20,7 @@ export const THEME = {
 
 /** 门店品类与标签色映射 */
 export const SHOP_TYPE_COLOR: Record<string, string> = {
-  生活美容: '#9C8AA5',
-  美甲美睫: '#C79BB0',
-  皮肤管理: '#8FA3B8',
+  直营旗舰店: '#9C8AA5',
+  标准门店: '#C79BB0',
+  社区快剪店: '#8FA3B8',
 }

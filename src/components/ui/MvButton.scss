@@ -2,18 +2,30 @@
 @use '../../styles/mixins' as *;
 
 .mv-btn {
-  display: flex;
+  /* 小程序端 button 是原生组件，必须在这里覆盖其默认样式 */
+  margin: 0;
+  padding: 0 28px;
+  border: none;
+  background: transparent;
+  line-height: normal;
+  display: inline-flex;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  display: inline-flex;
+  flex-shrink: 0;
   min-height: 44px;
-  padding: 0 28px;
   border-radius: $mv-radius-pill;
   font-size: $mv-font-md;
   font-weight: 500;
+  white-space: nowrap;
   letter-spacing: 0.5px;
   transition: transform 0.15s ease, opacity 0.15s ease;
+
+  /* 去掉微信 button 的默认描边伪元素 */
+  &::after {
+    border: none;
+  }
 
   &.mv-btn--block {
     display: flex;

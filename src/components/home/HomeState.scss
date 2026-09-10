@@ -92,7 +92,7 @@
   position: relative;
 }
 
-.home__metric + .home__metric::before {
+.home__metric+.home__metric::before {
   content: '';
   position: absolute;
   left: 0;
@@ -219,9 +219,30 @@
   color: #c79b6d;
 }
 
+.home__task--active {
+  border: 1px solid rgba(217, 160, 91, 0.45);
+  box-shadow: 0 8px 24px rgba(217, 160, 91, 0.12);
+}
+
 .home__task-actions {
-  @include mv-row(10px);
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
   margin-top: 14px;
+}
+
+/* 两个按钮各占一半，同一行等宽排布 */
+.home__task-action--secondary,
+.home__task-action--primary {
+  flex: 1;
+  min-width: 0;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.home__task-action--secondary {
+  margin-right: 10px;
 }
 
 .home__empty {

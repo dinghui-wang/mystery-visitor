@@ -30,16 +30,17 @@ page {
   --nutui-radius-l: 20px;
 }
 
-view,
-text,
-image,
-input,
-textarea,
-scroll-view {
+/**
+ * 只用通用选择器设置盒模型。
+ * 注意：小程序端 Taro 的 postcss-html-transform 会把 view/text/image/button 等
+ * HTML 标签选择器改写为 .h5-view/.h5-button 等类名，对真实组件不生效，
+ * 因此这里不能用标签选择器写全局重置（button 的重置放在 .mv-btn 里）。
+ */
+* {
   box-sizing: border-box;
 }
 
-/* 去掉小程序 button 默认样式，统一由 mv-btn 控制 */
+/* 去掉 button 默认样式（H5 端生效；小程序端见 .mv-btn） */
 button {
   margin: 0;
   padding: 0;
@@ -49,6 +50,7 @@ button {
   font-size: inherit;
   line-height: normal;
   color: inherit;
+  white-space: nowrap;
 }
 
 button::after {

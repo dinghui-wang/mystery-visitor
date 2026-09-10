@@ -1,93 +1,114 @@
-import { useState } from 'react'
-import { Image, Text, Textarea, View, type ITouchEvent } from '@tarojs/components'
+import { useEffect, useState } from 'react'
+import { Input, Text, Textarea, View } from '@tarojs/components'
 import { showToast } from '@tarojs/taro'
-import { icon } from '../../constants/icons'
-import { notifyPickError, pickImages, previewImage } from '../../services/media'
-import { REVIEW_DIMENSIONS, REVIEW_HIGHLIGHTS } from '../../services/mock'
+import {
+  EXPERIENCE_PROJECTS,
+  FORM_SECTIONS,
+  computeScore,
+  type AnswerValue,
+  type FormItem,
+} from '../../constants/reviewForm'
 import { useVisitor } from '../../store/VisitorContext'
-import { formatNow } from '../../utils/date'
-import { cx, rpx } from '../../utils/px'
+import { formatDate, formatNow } from '../../utils/date'
+import { cx } from '../../utils/px'
 import MvButton from '../ui/MvButton'
 import MvCard from '../ui/MvCard'
 import MvExitMenu from '../ui/MvExitMenu'
-import MvIcon from '../ui/MvIcon'
-import MvRate from '../ui/MvRate'
 import './ReviewForm.scss'
 
-const QUESTIONS = [
-  { key: 'pushedSale', label: '服务过程中是否被主动推销？', options: ['是，多次推荐', '是，仅一次', '否'] },
-  { key: 'recommendCard', label: '门店是否推荐办理会员卡？', options: ['是，主动推荐', '提及但未强推', '否'] },
-  { key: 'revisit', label: '你的复购意愿是？', options: ['愿意', '一般', '不愿意'] },
-] as const
-
-const MIN_COMMENT = 10
-const MAX_PHOTOS = 3
+const TYPED = '\u00A0' // 用 &nbsp; 风格空格
 
 export default function ReviewForm() {
   const { state, submitReview } = useVisitor()
   const task = state.activeTask
 
-  const [scores, setScores] = useState<Record<string, number>>({})
-  const [answers, setAnswers] = useState<Record<string, string>>({})
-  const [highlights, setHighlights] = useState<string[]>([])
-  const [comment, setComment] = useState('')
-  const [photos, setPhotos] = useState<string[]>([])
+  const [gender, setGender] = useState('')
+  const [age, setAge] = useState('')
+  const [city, setCity] = useState('')
+  const [shopNo, setShopNo] = useState('')
+  const [experienceDate, setExperienceDate] = useState('')
+  const [experienceTime, setExperienceTime] = useState('')
+  const [experienceProjects, setExperienceProjects] = useState<string[]>([])
+  const [consented, setConsented] = useState(false)
+  const [answers, setAnswers] = useState<Record<string, AnswerValue>>({})
+  const [sectionNotes, setSectionNotes] = useState({ service: '', hygiene: '', sendOff: '' })
+
+  useEffect(() => {
+    if (!task) return
+    setCity((prev) => prev || '武汉')
+    setShopNo((prev) => prev || task.id)
+    const now = new Date()
+    const date = formatDate(now)
+    const time = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`
+    setExperienceDate((prev) => prev || date)
+    setExperienceTime((prev) => prev || time)
+  }, [task])
 
   if (!task) return null
 
-  const scoredCount = REVIEW_DIMENSIONS.filter((item) => scores[item.key]).length
-  const answeredCount = QUESTIONS.filter((item) => answers[item.key]).length
-  const ready =
-    scoredCount === REVIEW_DIMENSIONS.length &&
-    answeredCount === QUESTIONS.length &&
-    comment.trim().length >= MIN_COMMENT
-
-  const toggleHighlight = (name: string) => {
-    setHighlights((prev) =>
-      prev.includes(name) ? prev.filter((item) => item !== name) : [...prev, name]
+  const toggleProject = (item: string) => {
+    setExperienceProjects((prev) =>
+      prev.includes(item) ? prev.filter((p) => p !== item) : [...prev, item]
     )
   }
 
-  const handleAddPhoto = async () => {
-    const remain = MAX_PHOTOS - photos.length
-    if (remain <= 0) {
-      showToast({ title: `最多上传 ${MAX_PHOTOS} 张`, icon: 'none' })
-      return
-    }
-    try {
-      const paths = await pickImages(remain)
-      if (paths.length) setPhotos((prev) => [...prev, ...paths])
-    } catch (error) {
-      notifyPickError(error)
+  const handleToggle = (item: FormItem, option: string) => {
+    if (item.multi) {
+      const current = Array.isArray(answers[item.key]) ? (answers[item.key] as string[]) : []
+      const next = current.includes(option)
+        ? current.filter((o) => o !== option)
+        : [...current, option]
+      setAnswers((prev) => ({ ...prev, [item.key]: next }))
+    } else {
+      setAnswers((prev) => ({ ...prev, [item.key]: option }))
     }
   }
 
+  const isSelected = (item: FormItem, option: string) => {
+    const v = answers[item.key]
+    return item.multi ? Array.isArray(v) && v.includes(option) : v === option
+  }
+
+  const basicFilled = !!gender && !!age && !!city && !!shopNo && !!experienceDate && !!experienceTime
+  const projectsChosen = experienceProjects.length > 0
+  const allAnswered = FORM_SECTIONS.every((section) =>
+    section.items.every((item) => {
+      const v = answers[item.key]
+      if (item.multi) return Array.isArray(v) && v.length > 0
+      return typeof v === 'string' && v.length > 0
+    })
+  )
+  const ready = basicFilled && projectsChosen && allAnswered && consented
+
   const handleSubmit = () => {
-    if (scoredCount !== REVIEW_DIMENSIONS.length) {
-      showToast({ title: '请完成全部维度评分', icon: 'none' })
+    if (!basicFilled) {
+      showToast({ title: '请完整填写神秘顾客基本信息', icon: 'none' })
       return
     }
-    if (answeredCount !== QUESTIONS.length) {
-      showToast({ title: '请完成全部选择项', icon: 'none' })
+    if (!projectsChosen) {
+      showToast({ title: '请至少选择一项体验项目', icon: 'none' })
       return
     }
-    if (comment.trim().length < MIN_COMMENT) {
-      showToast({ title: `体验描述不少于 ${MIN_COMMENT} 字`, icon: 'none' })
+    if (!allAnswered) {
+      showToast({ title: '请完成全部调查项目', icon: 'none' })
       return
     }
-
-    const total = REVIEW_DIMENSIONS.reduce((sum, item) => sum + (scores[item.key] ?? 0), 0)
-    const score = Number((total / REVIEW_DIMENSIONS.length).toFixed(1))
-
+    if (!consented) {
+      showToast({ title: '请勾选认同本次调查内容真实有效', icon: 'none' })
+      return
+    }
     submitReview({
-      scores,
-      pushedSale: answers.pushedSale ?? '',
-      recommendCard: answers.recommendCard ?? '',
-      revisit: answers.revisit ?? '',
-      highlights,
-      comment: comment.trim(),
-      photos,
-      score,
+      gender,
+      age,
+      city,
+      shopNo,
+      experienceDate,
+      experienceTime,
+      experienceProjects,
+      consented,
+      answers,
+      sectionNotes,
+      score: computeScore(answers),
       submittedAt: formatNow(),
     })
     showToast({ title: '回访已提交，+120 积分', icon: 'none', duration: 1600 })
@@ -99,139 +120,156 @@ export default function ReviewForm() {
         <View className='review__blob' />
         <View className='review__head'>
           <View style={{ flex: 1, minWidth: 0 }}>
-            <Text className='review__title'>暗访回访表</Text>
-            <Text className='review__subtitle'>真实还原到店体验，帮助品牌看见服务细节</Text>
+            <Text className='review__title'>徐东美发全国神秘顾客走访调查问卷</Text>
+            <Text className='review__subtitle'>{task.shopName}</Text>
           </View>
           <MvExitMenu />
-        </View>
-        <View className='review__shop'>
-          <Text className='review__shop-name'>{task.shopName}</Text>
-          <Text className='review__shop-meta'>
-            {task.shopType} · {task.project} · 到店 {task.checkIn?.checkedAt ?? task.appointAt}
-          </Text>
         </View>
       </View>
 
       <View className='review__body'>
-        <MvCard
-          className='review__card'
-          title='服务评分'
-          icon='sparkle'
-          extra={<Text style={{ fontSize: '12px', color: '#8B8195' }}>{scoredCount}/5</Text>}
-        >
-          {REVIEW_DIMENSIONS.map((item) => (
-            <View key={item.key} className='review__dim'>
-              <View className='review__dim-head'>
-                <View style={{ flex: 1 }}>
-                  <Text className='review__dim-name'>{item.key}</Text>
-                  <Text className='review__dim-desc'>{item.desc}</Text>
-                </View>
-                <MvRate
-                  value={scores[item.key] ?? 0}
-                  onChange={(value) => setScores((prev) => ({ ...prev, [item.key]: value }))}
-                />
-              </View>
-            </View>
-          ))}
-        </MvCard>
+        {/* 基本信息 */}
+        <MvCard className='review__card' title='必填：神秘顾客基本信息' icon='user'>
+          <View className='review__basic-grid'>
+            <Field label='性别' value={gender} onChange={setGender} placeholder='男 / 女' />
+            <Field label='年龄' value={age} onChange={setAge} placeholder='如 28' inputType='number' />
+            <Field label='体验城市' value={city} onChange={setCity} placeholder='如 武汉' />
+            <Field label='体验店号' value={shopNo} onChange={setShopNo} placeholder='如 MV-26091001' />
+            <Field label='体验日期' value={experienceDate} onChange={setExperienceDate} placeholder='YYYY-MM-DD' />
+            <Field label='体验时间' value={experienceTime} onChange={setExperienceTime} placeholder='HH:mm' />
+          </View>
 
-        <MvCard className='review__card' title='关键观察项' icon='note'>
-          {QUESTIONS.map((question) => (
-            <View key={question.key} style={{ marginBottom: 4 }}>
-              <Text className='review__group-label'>{question.label}</Text>
-              <View className='review__options'>
-                {question.options.map((option) => (
+          <View className='review__projects'>
+            <Text className='review__projects-label'>
+              体验项目 <Text className='review__required'>*</Text>
+            </Text>
+            <View className='review__projects-list'>
+              {EXPERIENCE_PROJECTS.map((item) => {
+                const on = experienceProjects.includes(item)
+                return (
                   <Text
-                    key={option}
-                    className={cx(
-                      'review__option',
-                      answers[question.key] === option && 'review__option--active'
-                    )}
-                    onClick={() =>
-                      setAnswers((prev) => ({ ...prev, [question.key]: option }))
-                    }
+                    key={item}
+                    className={cx('review__pill', on && 'review__pill--on')}
+                    onClick={() => toggleProject(item)}
                   >
-                    {option}
+                    {item}
                   </Text>
-                ))}
-              </View>
+                )
+              })}
             </View>
-          ))}
-
-          <Text className='review__group-label'>服务亮点（多选）</Text>
-          <View className='review__options'>
-            {REVIEW_HIGHLIGHTS.map((name) => (
-              <Text
-                key={name}
-                className={cx('review__option', highlights.includes(name) && 'review__option--active')}
-                onClick={() => toggleHighlight(name)}
-              >
-                {name}
-              </Text>
-            ))}
           </View>
         </MvCard>
 
-        <MvCard className='review__card' title='体验描述' icon='note'>
-          <View className='review__textarea-wrap'>
-            <Textarea
-              className='review__textarea'
-              value={comment}
-              maxlength={500}
-              placeholder='请客观描述接待流程、服务细节与整体感受，例如进店是否被及时迎接、护理时长是否符合承诺…'
-              placeholderStyle='color:#B5AEBD'
-              onInput={(event) => setComment(event.detail.value)}
-            />
-            <Text className='review__count'>{comment.length}/500</Text>
-          </View>
-        </MvCard>
+        {/* 温馨提示 */}
+        <View className='review__notice'>
+          填写真实感受，您将获得长期免费剪发服务. 若存在虚假不真实内容，您将永久失去免费剪发机会.
+        </View>
 
-        <MvCard
-          className='review__card'
-          title='补充凭证'
-          icon='image'
-          extra={<Text style={{ fontSize: '12px', color: '#8B8195' }}>{photos.length}/{MAX_PHOTOS}</Text>}
-        >
-          <View className='review__grid'>
-            {photos.map((path) => (
-              <View key={path} className='review__cell' onClick={() => previewImage(path, photos)}>
-                <Image className='review__img' src={path} mode='aspectFill' />
-                <View
-                  className='review__del'
-                  onClick={(event: ITouchEvent) => {
-                    event.stopPropagation()
-                    setPhotos((prev) => prev.filter((item) => item !== path))
-                  }}
-                >
-                  <View
-                    className='mv-icon'
-                    style={{
-                      width: rpx(12),
-                      height: rpx(12),
-                      backgroundImage: icon('close', '#FFFFFF', 2),
-                    }}
-                  />
+        {/* 认同请打 √ */}
+        <View className='review__consent' onClick={() => setConsented((v) => !v)}>
+          <View className={cx('review__consent-box', consented && 'review__consent-box--on')}>
+            {consented && <Text className='review__consent-tick'>√</Text>}
+          </View>
+          <Text className='review__consent-text'>认同请打 {TYPED}√{TYPED} · 我认同本次调查内容真实有效</Text>
+        </View>
+
+        {/* 调查表 */}
+        {FORM_SECTIONS.map((section, sIndex) => (
+          <View key={section.key} className='review__section-card'>
+            <View className='review__section-head'>
+              <Text className='review__section-title'>{section.title}</Text>
+              {!!section.noteField && (
+                <View className='review__section-note-hint'>本板块建议/意见（选填）</View>
+              )}
+            </View>
+
+            {section.items.map((item, iIndex) => (
+              <View key={item.key} className='review__item'>
+                <View className='review__item-head'>
+                  <Text className='review__item-no'>
+                    {sIndex + 1}.{iIndex + 1}
+                  </Text>
+                  <Text className='review__item-text'>{item.text}</Text>
                 </View>
+                <View className='review__options'>
+                  {item.options.map((opt) => {
+                    const on = isSelected(item, opt)
+                    return (
+                      <Text
+                        key={opt}
+                        className={cx('review__pill', on && 'review__pill--on')}
+                        onClick={() => handleToggle(item, opt)}
+                      >
+                        {opt}
+                      </Text>
+                    )
+                  })}
+                </View>
+                {!!item.noteHint && <Text className='review__item-hint'>{item.noteHint}</Text>}
               </View>
             ))}
-            {photos.length < MAX_PHOTOS && (
-              <View className='review__cell review__add' onClick={handleAddPhoto}>
-                <MvIcon name='plus' size={20} color='#9C8AA5' />
-                <Text className='review__add-text'>添加图片</Text>
-              </View>
+
+            {!!section.noteField && (
+              <Textarea
+                className='review__section-textarea'
+                value={sectionNotes[section.noteField]}
+                maxlength={200}
+                placeholder='请填写本板块的建议或意见…'
+                placeholderStyle='color:#B5AEBD'
+                onInput={(event) =>
+                  setSectionNotes((prev) => ({ ...prev, [section.noteField!]: event.detail.value }))
+                }
+              />
             )}
           </View>
-        </MvCard>
+        ))}
+
+        {/* 底部联系信息 */}
+        <View className='review__footer'>
+          <Text className='review__footer-title'>徐东美发全国统一服务热线</Text>
+          <Text className='review__footer-phone'>400 900 7686</Text>
+          <Text className='review__footer-tip'>有任何建议或疑问请加全国统一服务号</Text>
+        </View>
       </View>
 
       <View className='review__submit-bar'>
         <Text className='review__submit-hint'>
-          {ready ? '提交后本单计入历史记录并发放积分' : '完成全部评分、选择项与体验描述后可提交'}
+          {ready
+            ? '提交后本单计入历史记录并发放积分'
+            : '完成神秘顾客基本信息、全部调查项目与认同勾选后可提交'}
         </Text>
         <MvButton block size='lg' type={ready ? 'primary' : 'soft'} onClick={handleSubmit}>
-          {ready ? '提交回访' : '请完成回访内容'}
+          {ready ? '提交回访' : '请完成问卷内容'}
         </MvButton>
       </View>
+    </View>
+  )
+}
+
+interface FieldProps {
+  label: string
+  value: string
+  onChange: (value: string) => void
+  placeholder?: string
+  inputType?: 'text' | 'number'
+}
+
+function Field({ label, value, onChange, placeholder, inputType = 'text' }: FieldProps) {
+  return (
+    <View className='review__field'>
+      <Text className='review__field-label'>
+        {label}
+        <Text className='review__required'> *</Text>
+      </Text>
+      <Input
+        className='review__field-input'
+        value={value}
+        type={inputType}
+        maxlength={20}
+        placeholder={placeholder}
+        placeholderClass='review__field-placeholder'
+        onInput={(event) => onChange(event.detail.value)}
+      />
     </View>
   )
 }

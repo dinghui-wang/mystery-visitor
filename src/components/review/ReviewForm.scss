@@ -5,6 +5,7 @@
   padding-bottom: 110px;
 }
 
+/* ---------- 头部 ---------- */
 .review__hero {
   position: relative;
   padding: 18px 20px 22px;
@@ -33,9 +34,10 @@
 .review__title {
   position: relative;
   display: block;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 600;
   color: #fff;
+  line-height: 1.4;
 }
 
 .review__subtitle {
@@ -46,168 +48,270 @@
   color: rgba(255, 255, 255, 0.85);
 }
 
-.review__shop {
-  position: relative;
-  margin-top: 12px;
-  padding: 10px 12px;
-  border-radius: $mv-radius;
-  background: rgba(255, 255, 255, 0.16);
-  border: 1px solid rgba(255, 255, 255, 0.28);
-}
-
-.review__shop-name {
-  display: block;
-  font-size: $mv-font;
-  font-weight: 600;
-  color: #fff;
-}
-
-.review__shop-meta {
-  display: block;
-  margin-top: 3px;
-  font-size: $mv-font-xs;
-  color: rgba(255, 255, 255, 0.82);
-}
-
+/* ---------- 主体 ---------- */
 .review__body {
   margin-top: -10px;
   padding: 0 16px;
 }
 
+/* 基本信息 */
 .review__card {
   margin-bottom: 14px;
 }
 
-.review__dim {
-  padding: 10px 0;
+.review__basic-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 12px;
 }
 
-.review__dim + .review__dim {
+.review__field {
+  width: calc((100% - 12px) / 2);
+}
+
+.review__field-label {
+  display: block;
+  font-size: $mv-font-sm;
+  color: $mv-text-sub;
+  margin-bottom: 4px;
+}
+
+.review__field-input {
+  width: 100%;
+  height: 36px;
+  padding: 0 10px;
+  background: $mv-lavender-50;
+  border: 1px solid $mv-lavender-200;
+  border-radius: $mv-radius-sm;
+  font-size: $mv-font;
+  color: $mv-purple-ink;
+  line-height: 36px;
+}
+
+.review__field-placeholder {
+  color: $mv-text-weak !important;
+}
+
+.review__required {
+  color: $mv-danger;
+  font-size: $mv-font-sm;
+}
+
+.review__projects {
+  margin-top: 14px;
+  padding-top: 12px;
   border-top: 1px dashed rgba(229, 220, 238, 0.9);
 }
 
-.review__dim-head {
-  @include mv-row(10px);
-  align-items: flex-start;
+.review__projects-label {
+  display: block;
+  font-size: $mv-font-sm;
+  color: $mv-text-sub;
+  margin-bottom: 8px;
 }
 
-.review__dim-name {
+.review__projects-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* 红色温馨提示 */
+.review__notice {
+  margin: 10px 0 14px;
+  padding: 10px 14px;
+  border-radius: $mv-radius-sm;
+  background: rgba(199, 123, 123, 0.12);
+  font-size: $mv-font-sm;
+  color: #a65656;
+  line-height: 1.7;
+}
+
+/* 认同勾选 */
+.review__consent {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  margin-bottom: 14px;
+  background: $mv-card;
+  border: 1px solid $mv-lavender-200;
+  border-radius: $mv-radius;
+  @include mv-press();
+}
+
+.review__consent-box {
+  width: 18px;
+  height: 18px;
+  border: 1.5px solid $mv-text-weak;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  flex-shrink: 0;
+}
+
+.review__consent-box--on {
+  background: $mv-purple-deep;
+  border-color: $mv-purple-deep;
+}
+
+.review__consent-tick {
+  color: #fff;
+  font-size: 13px;
+  line-height: 13px;
+  font-weight: 700;
+}
+
+.review__consent-text {
+  flex: 1;
   font-size: $mv-font;
-  font-weight: 500;
   color: $mv-purple-ink;
 }
 
-.review__dim-desc {
-  display: block;
-  margin-top: 2px;
+/* 调查分节 */
+.review__section-card {
+  margin-bottom: 14px;
+  padding: 14px 16px;
+  background: $mv-card;
+  border-radius: $mv-radius-lg;
+  box-shadow: $mv-shadow;
+}
+
+.review__section-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding-bottom: 10px;
+  margin-bottom: 8px;
+  border-bottom: 1.5px solid $mv-purple-ink;
+}
+
+.review__section-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: $mv-purple-ink;
+  letter-spacing: 2px;
+}
+
+.review__section-note-hint {
   font-size: $mv-font-xs;
   color: $mv-text-sub;
 }
 
-.review__group-label {
-  display: block;
-  font-size: $mv-font;
-  font-weight: 500;
+.review__item {
+  padding: 10px 0;
+  border-bottom: 1px dashed rgba(229, 220, 238, 0.9);
+}
+
+.review__item:last-child {
+  border-bottom: none;
+}
+
+.review__item-head {
+  display: flex;
+  gap: 6px;
+  align-items: flex-start;
+}
+
+.review__item-no {
+  flex-shrink: 0;
+  font-size: $mv-font-sm;
+  font-weight: 600;
+  color: $mv-purple-deep;
+  min-width: 28px;
+}
+
+.review__item-text {
+  flex: 1;
+  font-size: $mv-font-sm;
   color: $mv-purple-ink;
-  margin-bottom: 8px;
+  line-height: 1.7;
 }
 
 .review__options {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  margin-bottom: 16px;
+  margin-top: 8px;
+  padding-left: 34px;
 }
 
-.review__option {
-  padding: 7px 14px;
-  border-radius: $mv-radius-pill;
+.review__item-hint {
+  display: block;
+  margin: 6px 0 0 34px;
+  font-size: $mv-font-xs;
+  color: #b5614f;
+}
+
+.review__section-textarea {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 80px;
+  margin-top: 10px;
+  padding: 10px 12px;
   background: $mv-lavender-50;
-  border: 1px solid transparent;
+  border: 1px solid $mv-lavender-200;
+  border-radius: $mv-radius-sm;
+  font-size: $mv-font;
+  color: $mv-purple-ink;
+  line-height: 1.6;
+}
+
+/* 统一选项胶囊（基本信息、体验项目、调查项） */
+.review__pill {
+  display: inline-block;
+  padding: 6px 12px;
   font-size: $mv-font-sm;
   color: $mv-text-sub;
+  background: $mv-lavender-50;
+  border: 1px solid transparent;
+  border-radius: $mv-radius-pill;
+  white-space: nowrap;
   @include mv-press();
 }
 
-.review__option--active {
-  background: rgba(156, 138, 165, 0.14);
-  border-color: rgba(156, 138, 165, 0.4);
+.review__pill--on {
+  background: rgba(156, 138, 165, 0.16);
+  border-color: rgba(156, 138, 165, 0.45);
   color: $mv-purple-deep;
   font-weight: 600;
 }
 
-.review__textarea-wrap {
-  position: relative;
+/* 底部服务热线 */
+.review__footer {
+  margin-top: 18px;
+  padding: 16px;
+  text-align: center;
+  background: $mv-card;
+  border-radius: $mv-radius-lg;
+  box-shadow: $mv-shadow;
 }
 
-.review__textarea {
-  width: 100%;
-  min-height: 96px;
-  padding: 12px;
-  border-radius: $mv-radius;
-  background: $mv-lavender-50;
-  border: 1px solid $mv-lavender-200;
+.review__footer-title {
+  display: block;
   font-size: $mv-font;
-  line-height: 1.6;
-  color: $mv-purple-ink;
+  color: $mv-text-sub;
 }
 
-.review__count {
+.review__footer-phone {
   display: block;
   margin-top: 6px;
-  text-align: right;
+  font-size: 22px;
+  font-weight: 700;
+  color: $mv-purple-deep;
+  letter-spacing: 2px;
+}
+
+.review__footer-tip {
+  display: block;
+  margin-top: 6px;
   font-size: $mv-font-xs;
   color: $mv-text-weak;
 }
 
-.review__grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.review__cell {
-  width: calc((100% - 16px) / 3);
-  height: 96px;
-  border-radius: $mv-radius-sm;
-  overflow: hidden;
-  position: relative;
-}
-
-.review__img {
-  width: 100%;
-  height: 100%;
-}
-
-.review__del {
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 22px;
-  height: 22px;
-  border-radius: 0 0 0 12px;
-  background: rgba(74, 63, 82, 0.6);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.review__add {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 4px;
-  border: 1px dashed $mv-lavender-200;
-  background: $mv-lavender-50;
-  @include mv-press();
-}
-
-.review__add-text {
-  font-size: $mv-font-xs;
-  color: $mv-text-sub;
-}
-
+/* 提交栏 */
 .review__submit-bar {
   position: fixed;
   left: 0;
